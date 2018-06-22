@@ -1,3 +1,4 @@
+#For use in the LDAP client (Ubuntu). This file is imported in to give the client the necessary context to connect to the LDAP server.
 ldap-auth-config        ldap-auth-config/rootbindpw     password
 ldap-auth-config        ldap-auth-config/bindpw password
 ldap-auth-config        ldap-auth-config/override       boolean true
