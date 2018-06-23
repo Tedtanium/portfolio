@@ -1,0 +1,11 @@
+repo-server
+nagios
+build-server
+cacti
+rsyslog
+ldap
+nfs
+client
+postgres
+django
+load-balancer
