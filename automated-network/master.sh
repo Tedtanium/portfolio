@@ -97,7 +97,7 @@ for line in $(cat /portfolio/automated-network/instances-list); do
     gcloud compute instances create rsyslog	--metadata-from-file startup-script=/portfolio/rsyslog/rsyslog-server.sh --image centos-7 --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform    
   fi
   
-  if [ $NAME != 'nagios' ]; then
+  if [ $NAME != 'nagios' ] && [ $NAME != 'repo-server' ]; then
     IP=$(getent hosts $NAME.c.triple-nectar-194121.internal | awk '{ print $1 }')
     #Runs the Nagios client creation script on the Nagios server, passing hostname and IP variables as arguments.
     su - tjense04 -c "gcloud compute ssh --zone us-east1-b nagios --quiet --command "\""sudo bash /generate-nagios-client.sh $NAME $IP"\"""
