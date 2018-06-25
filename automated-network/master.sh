@@ -39,6 +39,7 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   fi
   
   if [ $NAME = 'ldap' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/ldap/ldap-server.sh
     gcloud compute instances create ldap	--metadata-from-file startup-script=/portfolio/ldap/ldap-server.sh --image centos-7 --tags http-server --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform 
     LDAPIP=$(getent hosts $NAME.c.triple-nectar-194121.internal | awk '{ print $1 }')
     sed -i "s/LDAPIP/$LDAPIP/g" /portfolio/ubuntu-client/client.sh 
@@ -46,6 +47,7 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   
   
   if [ $NAME = 'nfs' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/nfs/nfs-server.sh
     gcloud compute instances create nfs	--metadata-from-file startup-script=/portfolio/nfs/nfs-server.sh --image centos-7 --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform 
     NFSIP=$(getent hosts $NAME.c.triple-nectar-194121.internal | awk '{ print $1 }')
     sed -i "s/NFSIP/$NFSIP/g" /portfolio/ubuntu-client/client.sh  
@@ -53,6 +55,7 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   
   
   if [ $NAME = 'postgres' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/django-on-postgres/postgres.sh
     gcloud compute instances create postgres	--metadata-from-file startup-script=/portfolio/django-on-postgres/postgres.sh --image centos-7 --tags http-server --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform 
     POSTGRESIP=$(getent hosts $NAME.c.triple-nectar-194121.internal | awk '{ print $1 }')
     sed -i "s/POSTGRESIP/$POSTGRESIP/g" /portfolio/django-on-postgres/django.sh 
@@ -64,15 +67,18 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   fi
   
   if [ $NAME = 'django' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/django-on-postgres/django.sh
     gcloud compute instances create django --metadata-from-file startup-script=nti-320-linux-monitoring/automated-network/django.sh --image centos-7 --tags "http-server","djangoisonfiresomebodycall911" --zone us-east1-b --machine-type f1-micro --scopes cloud-platform 
   fi
   
   
   if [ $NAME = 'load-balancer' ]; then 
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/load-balancer/load-balancer.sh
     gcloud compute instances create load-balancer	--metadata-from-file startup-script=/portfolio/load-balancer/load-balancer.sh --image centos-7 --tags http-server --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform 
   fi
   
   if [ $NAME = 'cacti' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/cacti/cacti-server.sh
     gcloud compute instances create cacti	--metadata-from-file startup-script=/portfolio/cacti/cacti-server.sh --image centos-7 --tags http-server --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform 
   fi
   
@@ -82,10 +88,12 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   fi
   
   if [ $NAME = 'build-server' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/rpms/build-server.sh
     gcloud compute instances create build-server	--metadata-from-file startup-script=/portfolio/rpms/build-server.sh --image centos-7 --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform    
   fi
   
   if [ $NAME = 'rsyslog' ]; then
+    sed -i "s/REPOIP/$REPOIP/g" /portfolio/rsyslog/rsyslog-server.sh
     gcloud compute instances create rsyslog	--metadata-from-file startup-script=/portfolio/rsyslog/rsyslog-server.sh --image centos-7 --zone us-east1-b --machine-type f1-micro 	--scopes cloud-platform    
   fi
   
