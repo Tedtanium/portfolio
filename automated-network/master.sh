@@ -99,7 +99,7 @@ for line in $(cat /portfolio/automated-network/instances-list); do
   
   if [ $NAME != 'nagios' ] && [ $NAME != 'repo-server' ]; then
     IP=$(getent hosts $NAME.c.triple-nectar-194121.internal | awk '{ print $1 }')
-    #Runs the Nagios client creation script on the Nagios server, passing hostname and IP variables as arguments.
+    #Runs the Nagios client creation script on the Nagios server, passing hostname and IP variables as arguments. Must be done as the GCP user.
     su - tjense04 -c "gcloud compute ssh --zone us-east1-b nagios --quiet --command "\""sudo bash /generate-nagios-client.sh $NAME $IP"\"""
     fi
   
