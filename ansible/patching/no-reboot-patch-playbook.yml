@@ -1,0 +1,18 @@
+- name: Update packages
+  # hosts: reboot_fast:reboot_silo_mongo
+  # hosts: reboot_fast
+  hosts: example
+  become: true
+  gather_facts: true
+
+  vars:
+      packages:
+          RH8: <REDACTED>
+          RH7: <REDACTED>
+
+  tasks:
+      - name: Ensure kernel is at the right version
+        ansible.builtin.package:
+          name: "{{ packages['RH' + ansible_distribution_major_version] }}"
+          state: latest
+          update_only: true
